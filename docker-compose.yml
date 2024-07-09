@@ -1,0 +1,30 @@
+volumes:
+  cache:
+    driver: local
+
+services:
+  usersservice:
+    image: stoplight/prism:4
+    ports:
+      - 14010:4010
+    command: ["mock","-h","0.0.0.0","https://raw.githubusercontent.com/friendpost-july/user-spec/main/user_spec.yml"]
+
+  postsservice:
+    image: stoplight/prism:4
+    ports:
+      - 14011:4010
+    command: ["mock","-h","0.0.0.0","https://raw.githubusercontent.com/friendpost-july/post-management-spec/main/post-spec.yml"]
+
+  friendsservice:
+    image: stoplight/prism:4
+    ports:
+      - 14012:4010
+    command: ["mock","-h","0.0.0.0","https://raw.githubusercontent.com/friendpost-july/friends-spec/main/openapi.yaml"]
+
+  redis:
+    image: redis/redis-stack:latest
+    ports:
+      - 16379:6379
+      - 18001:8001
+    volumes:
+      - cache:/data
