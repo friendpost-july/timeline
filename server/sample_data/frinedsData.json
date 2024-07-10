@@ -1,42 +1,10 @@
 [
   {
     "friendId": "1",
-    "name": "Alice Johnson"
+    "name": "John Doe"
   },
   {
     "friendId": "2",
-    "name": "Bob Smith"
-  },
-  {
-    "friendId": "3",
-    "name": "Charlie Davis"
-  },
-  {
-    "friendId": "4",
-    "name": "Diana Evans"
-  },
-  {
-    "friendId": "5",
-    "name": "Edward Green"
-  },
-  {
-    "friendId": "6",
-    "name": "Fiona Harris"
-  },
-  {
-    "friendId": "7",
-    "name": "George King"
-  },
-  {
-    "friendId": "8",
-    "name": "Hannah Lewis"
-  },
-  {
-    "friendId": "9",
-    "name": "Ivan Martinez"
-  },
-  {
-    "friendId": "10",
-    "name": "Julia Nelson"
+    "name": "Jane Smith"
   }
 ]
