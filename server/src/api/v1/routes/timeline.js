@@ -1,5 +1,5 @@
-import { Router } from 'express'
-const timeline = Router()
+import { Router } from "express";
+const timeline = Router();
 
 import { setCache, getCache } from '../methods/timeline.methods.js';
 
