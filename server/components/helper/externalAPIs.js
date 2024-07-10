@@ -1,6 +1,6 @@
-const { friendsServiceAPI, userServiceAPI } = require("./constants");
+import { friendsServiceAPI, userServiceAPI, postServiceAPI } from "./constants";
 
-exports.getFriends = async (userId) => {
+export const getFriends = async (userId) => {
   if (userId) {
     try {
       const response = await axios.get(
@@ -15,7 +15,7 @@ exports.getFriends = async (userId) => {
   return [];
 };
 
-exports.getDeactivatedUsers = async () => {
+export const getDeactivatedUsers = async () => {
   try {
     const body = {
       status: false,
@@ -28,13 +28,21 @@ exports.getDeactivatedUsers = async () => {
   }
 };
 
-exports.getAllPosts = async (includeUsers, excludeUsers) => {
+export const getAllFriendsPosts = async (friendsList) => {
   try {
     const body = {
-      includeusers: includeUsers,
-      excludeusers: excludeUsers,
+      inciudeusers: friendsList,
     };
     const response = await axios.post(`${postServiceAPI}/posts`, body);
+    return response;
+  } catch (error) {
+    return [];
+  }
+};
+
+export const getAllPublicPosts = async () => {
+  try {
+    const response = await axios.post(`${postServiceAPI}/posts`);
     return response;
   } catch (error) {
     return [];

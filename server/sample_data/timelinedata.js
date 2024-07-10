@@ -1,4 +1,4 @@
-const timelinedata = [
+const timelineData = [
   {
     userId: "1",
     userName: "Nick",
@@ -67,4 +67,4 @@ const timelinedata = [
   },
 ];
 
-module.exports = timelinedata;
+export default timelineData

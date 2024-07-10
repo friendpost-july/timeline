@@ -1,14 +1,13 @@
-const express = require("express");
+import express from "express";
+import cors from "cors"
+import timeline from "./src/api/v1/routes/timeline";
 const app = express();
-const cors = require("cors");
 
 const port = process.env.PORT;
 
 app.use(cors());
 
 // Importing Routes
-
-const timeline = require("./src/api/v1/routes/timeline");
 app.use("/timeline", timeline);
 
 app.listen(port, () => {
