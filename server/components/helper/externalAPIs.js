@@ -18,7 +18,7 @@ exports.getFriends = async (userId) => {
 exports.getDeactivatedUsers = async () => {
   try {
     const body = {
-      status: true,
+      status: false,
     };
     const response = await axios.post(`${userServiceAPI}/filter`, body);
     let listOfDeactivatedUsers = response.filter((user) => user.id);
