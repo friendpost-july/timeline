@@ -21,7 +21,7 @@ exports.getDeactivatedUsers = async () => {
       status: false,
     };
     const response = await axios.post(`${userServiceAPI}/filter`, body);
-    let listOfDeactivatedUsers = response.filter((user) => user.id);
+    let listOfDeactivatedUsers = response.map((user) => user.id);
     return listOfDeactivatedUsers;
   } catch (error) {
     return [];
