@@ -1,0 +1,38 @@
+[
+  {
+    "userId": "1",
+    "postId": "post001",
+    "creationTime": "2024-07-10T10:00:00Z",
+    "content": "This is the first post content."
+  },
+  {
+    "userId": "1",
+    "postId": "post002",
+    "creationTime": "2024-07-10T10:05:00Z",
+    "content": "This is the second post content."
+  },
+  {
+    "userId": "2",
+    "postId": "post003",
+    "creationTime": "2024-07-10T10:10:00Z",
+    "content": "This is the third post content."
+  },
+  {
+    "userId": "1",
+    "postId": "post004",
+    "creationTime": "2024-07-10T10:15:00Z",
+    "content": "This is the fourth post content."
+  },
+  {
+    "userId": "2",
+    "postId": "post005",
+    "creationTime": "2024-07-10T10:20:00Z",
+    "content": "This is the fifth post content."
+  },
+  {
+    "userId": "1",
+    "postId": "post006",
+    "creationTime": "2024-07-10T10:25:00Z",
+    "content": "This is the sixth post content."
+  }
+]
