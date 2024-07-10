@@ -1,35 +1,18 @@
 import { Router } from 'express'
 const timeline = Router()
 
-// import timelineData from '../../../../sample_data/timelinedata';
-import { getFriends, getDeactivatedUsers, getAllPublicPosts, getAllFriendsPosts, getUsernames } from '../../../../components/helper/externalAPIs.js';
-
+import { setCache, getCache } from '../methods/timeline.methods.js';
 
 // define the home page route
-timeline.get('/:id', (req, res) => {
+timeline.get('/:id', async (req, res) => {
   const id = req.params.id
   try {
-    const friends = getFriends(id)
-    const posts = getAllPublicPosts().concat(getAllFriendsPosts(friends))
-    const newPosts = posts.filter(
-      (post) => !getDeactivatedUsers().includes(post.userId)
-    )
-    const uniqueUserIds = [...new Set(newPosts.map(item => item.userId))].toString();
-    const userList = getUsernames(uniqueUserIds)
-    const timelinePosts = newPosts.map((post) => {
-      const users = {
-        ...post,
-        fullName: userList.find((user) => user.id === post.userId).fullName,
-      };
-      return users;
-    });
-    res.send(timelinePosts);
-
+    const posts = await getCache(id)
+    setCache(id)
+    res.status(200).send(posts)
   } catch (error) {
-    res.send(error)
+    res.status(500).send("Internal Server Error")
   }
-
-
 })
 
 export default timeline;
