@@ -35,9 +35,15 @@ export const getDeactivatedUsers = async () => {
 export const getAllFriendsPosts = async (friendsList) => {
   try {
     const body = {
-      inciudeusers: friendsList,
+      filter: {
+        userIds: friendsList,
+        visibility: "private"
+      },
+      sort: {
+        field: "creationTime"
+      }
     };
-    const response = await axios.post(`${POST_SERVICE_ENV}/posts`, body);
+    const response = await axios.post(`${POST_SERVICE_ENV}/searchposts`, body);
     return response.posts;
   } catch (error) {
     return [];
@@ -46,7 +52,15 @@ export const getAllFriendsPosts = async (friendsList) => {
 
 export const getAllPublicPosts = async () => {
   try {
-    const response = await axios.post(`${POST_SERVICE_ENV}/posts`);
+    const body = {
+      filter: {
+        visibility: "public"
+      },
+      sort: {
+        field: "creationTime"
+      }
+    };
+    const response = await axios.post(`${POST_SERVICE_ENV}/searchposts`, body);
     return response.posts;
   } catch (error) {
     return [];

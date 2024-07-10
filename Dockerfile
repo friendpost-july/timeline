@@ -7,4 +7,4 @@ RUN npm install
 
 CMD ["node","server.js"]
 
-EXPOSE 3002
+EXPOSE 15033
