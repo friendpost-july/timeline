@@ -28,3 +28,15 @@ services:
       - 18001:8001
     volumes:
       - cache:/data
+
+  timelineservice:
+    image: timelineservice:0.1.0
+    ports:
+      - 15056:15033
+    environment:
+      - PORT=15033
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - POST_SERVICE_ENV=https://postsservice:4010
+      - FRIENDS_SERVICE_ENV=https://friendsservice:4010
+      - USER_SERVICE_ENV=https://usersservice:4010
