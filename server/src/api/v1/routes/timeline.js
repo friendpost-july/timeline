@@ -9,7 +9,11 @@ timeline.get('/:id', async (req, res) => {
   try {
     const posts = await getCache(id)
     setCache(id)
-    res.status(200).send(posts)
+    if (posts) {
+      res.status(200).send(posts)
+    } else {
+      res.status(200).send([])
+    }
   } catch (error) {
     res.status(500).send("Internal Server Error")
   }

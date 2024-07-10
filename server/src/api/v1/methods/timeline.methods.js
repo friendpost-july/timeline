@@ -20,22 +20,22 @@ export const setCache = async (id) => {
     ].toString();
     const userList = await getUsernames(uniqueUserIds);
     const timelinePosts = newPosts.map((post) => {
-      const users = {
+      const updatedPosts = {
         ...post,
         fullName: userList.find((user) => user.id === post.userId).fullName,
       };
-      return users;
+      return updatedPosts;
     });
-    redisClient.set(id, timelinePosts);
+    await redisClient.set(id, JSON.stringify(timelinePosts), (err) => { console.log("err", err) });
   } catch (error) {
-    return [];
+    console.log(error)
   }
 };
 
 export const getCache = async (id) => {
   try {
     const posts = await redisClient.get(id);
-    return posts;
+    return JSON.parse(posts);
   } catch (error) {
     return [];
   }
