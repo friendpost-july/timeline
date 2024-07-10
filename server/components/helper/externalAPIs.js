@@ -1,10 +1,14 @@
-import { friendsServiceAPI, userServiceAPI, postServiceAPI } from "./constants";
+import {
+  POST_SERVICE_ENV,
+  FRIENDS_SERVICE_ENV,
+  USER_SERVICE_ENV,
+} from "./constants.js";
 
 export const getFriends = async (userId) => {
   if (userId) {
     try {
       const response = await axios.get(
-        `${friendsServiceAPI}/friends/?userId=${userId}`
+        `${FRIENDS_SERVICE_ENV}/friends/?userId=${userId}`
       );
       let listOfFriendsId = response.map((friend) => friend.friendId);
       return listOfFriendsId;
@@ -20,7 +24,7 @@ export const getDeactivatedUsers = async () => {
     const body = {
       status: false,
     };
-    const response = await axios.post(`${userServiceAPI}/filter`, body);
+    const response = await axios.post(`${USER_SERVICE_ENV}/filter`, body);
     let listOfDeactivatedUsers = response.map((user) => user.id);
     return listOfDeactivatedUsers;
   } catch (error) {
@@ -33,8 +37,8 @@ export const getAllFriendsPosts = async (friendsList) => {
     const body = {
       inciudeusers: friendsList,
     };
-    const response = await axios.post(`${postServiceAPI}/posts`, body);
-    return response;
+    const response = await axios.post(`${POST_SERVICE_ENV}/posts`, body);
+    return response.posts;
   } catch (error) {
     return [];
   }
@@ -42,9 +46,22 @@ export const getAllFriendsPosts = async (friendsList) => {
 
 export const getAllPublicPosts = async () => {
   try {
-    const response = await axios.post(`${postServiceAPI}/posts`);
-    return response;
+    const response = await axios.post(`${POST_SERVICE_ENV}/posts`);
+    return response.posts;
   } catch (error) {
     return [];
   }
 };
+
+export const getUsernames = async (userIds) => {
+  try {
+    const response = await axios.get(`${USER_SERVICE_ENV}?_id=${userIds}`)
+    const usersList = response.map(user => ({
+      fullName: user.fullName,
+      id: user.id
+    }));
+    return usersList
+  } catch (error) {
+    return []
+  }
+}
