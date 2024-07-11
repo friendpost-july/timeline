@@ -1,17 +1,17 @@
-import express from "express"
-import cors from "cors"
-import 'dotenv/config'
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
 
 import timeline from "./src/api/v1/routes/timeline.js";
 import redisClient from "./src/api/v1/helper/redisConnection.js";
 
 const app = express();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 15033;
 
 app.use(cors());
 
-await redisClient.connect()
+await redisClient.connect();
 
 // Importing Routes
 app.use("/timeline", timeline);
