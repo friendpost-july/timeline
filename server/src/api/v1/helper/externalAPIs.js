@@ -4,6 +4,8 @@ import {
   USER_SERVICE_ENV,
 } from "./constants.js";
 
+import axios from 'axios';
+
 export const getFriends = async (userId) => {
   if (userId) {
     try {
@@ -70,7 +72,7 @@ export const getAllPublicPosts = async () => {
 export const getUsernames = async (userIds) => {
   try {
     const response = await axios.get(
-      `${USER_SERVICE_ENV}/users?_id=${userIds}`
+      `${USER_SERVICE_ENV}/users?ids=${userIds}`
     );
     const usersList = response.data.map((user) => ({
       fullName: user.fullName,
@@ -78,6 +80,7 @@ export const getUsernames = async (userIds) => {
     }));
     return usersList;
   } catch (error) {
+    console.log('Error while getting users:', error);
     return [];
   }
 };
