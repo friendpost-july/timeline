@@ -27,7 +27,7 @@ export const setCache = async (id) => {
       };
       return updatedPosts;
     });
-    await redisClient.set(id, JSON.stringify(timelinePosts), (err) => {
+    await redisClient.set(id, JSON.stringify({ cachedDatetime: new Date(), timelinePosts }), (err) => {
       console.log("err", err);
     });
   } catch (error) {

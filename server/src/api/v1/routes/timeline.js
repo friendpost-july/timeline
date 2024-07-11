@@ -8,10 +8,15 @@ timeline.get('/:id', async (req, res) => {
   const id = req.params.id
   try {
     const posts = await getCache(id)
-    setCache(id)
     if (posts) {
-      res.status(200).send(posts)
+      const cachedDatetime = new Date(posts.cachedDatetime)
+      const timeDiff = (new Date() - cachedDatetime) / 60000
+      if (timeDiff > 2) {
+        setCache(id)
+      }
+      res.status(200).send(posts.timelinePosts)
     } else {
+      setCache(id)
       res.status(200).send([])
     }
   } catch (error) {
