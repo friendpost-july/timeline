@@ -10,7 +10,7 @@ export const getFriends = async (userId) => {
       const response = await axios.get(
         `${FRIENDS_SERVICE_ENV}/friends/?userId=${userId}`
       );
-      let listOfFriendsId = response.map((friend) => friend.friendId);
+      let listOfFriendsId = response.data.map((friend) => friend.friendId);
       return listOfFriendsId;
     } catch (error) {
       return [];
@@ -25,7 +25,7 @@ export const getDeactivatedUsers = async () => {
       status: false,
     };
     const response = await axios.post(`${USER_SERVICE_ENV}/filter`, body);
-    let listOfDeactivatedUsers = response.map((user) => user.id);
+    let listOfDeactivatedUsers = response.data.map((user) => user.id);
     return listOfDeactivatedUsers;
   } catch (error) {
     return [];
@@ -37,14 +37,14 @@ export const getAllFriendsPosts = async (friendsList) => {
     const body = {
       filter: {
         userIds: friendsList,
-        visibility: "private"
+        visibility: "private",
       },
       sort: {
-        field: "creationTime"
-      }
+        field: "creationTime",
+      },
     };
     const response = await axios.post(`${POST_SERVICE_ENV}/searchposts`, body);
-    return response.posts;
+    return response.data.posts;
   } catch (error) {
     return [];
   }
@@ -54,14 +54,14 @@ export const getAllPublicPosts = async () => {
   try {
     const body = {
       filter: {
-        visibility: "public"
+        visibility: "public",
       },
       sort: {
-        field: "creationTime"
-      }
+        field: "creationTime",
+      },
     };
     const response = await axios.post(`${POST_SERVICE_ENV}/searchposts`, body);
-    return response.posts;
+    return response.data.posts;
   } catch (error) {
     return [];
   }
@@ -69,13 +69,15 @@ export const getAllPublicPosts = async () => {
 
 export const getUsernames = async (userIds) => {
   try {
-    const response = await axios.get(`${USER_SERVICE_ENV}?_id=${userIds}`)
-    const usersList = response.map(user => ({
+    const response = await axios.get(
+      `${USER_SERVICE_ENV}/users?_id=${userIds}`
+    );
+    const usersList = response.data.map((user) => ({
       fullName: user.fullName,
-      id: user.id
+      id: user.id,
     }));
-    return usersList
+    return usersList;
   } catch (error) {
-    return []
+    return [];
   }
-}
+};

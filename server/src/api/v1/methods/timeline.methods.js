@@ -1,6 +1,7 @@
 import {
   getAllFriendsPosts,
   getAllPublicPosts,
+  getDeactivatedUsers,
   getFriends,
   getUsernames,
 } from "../helper/externalAPIs.js";
@@ -8,12 +9,12 @@ import redisClient from "../helper/redisConnection.js";
 
 export const setCache = async (id) => {
   try {
-    const friends = getFriends(id);
+    const friends = await getFriends(id);
     const publicPosts = await getAllPublicPosts();
     const privatePosts = await getAllFriendsPosts(friends);
     const posts = publicPosts.concat(privatePosts);
     const newPosts = posts.filter(
-      (post) => !getDeactivatedUsers().includes(post.userId)
+      async (post) => !(await getDeactivatedUsers()).includes(post.userId)
     );
     const uniqueUserIds = [
       ...new Set(newPosts.map((item) => item.userId)),
@@ -26,9 +27,11 @@ export const setCache = async (id) => {
       };
       return updatedPosts;
     });
-    await redisClient.set(id, JSON.stringify(timelinePosts), (err) => { console.log("err", err) });
+    await redisClient.set(id, JSON.stringify(timelinePosts), (err) => {
+      console.log("err", err);
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
