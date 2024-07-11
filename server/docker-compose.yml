@@ -1,6 +1,7 @@
 volumes:
   cache:
     driver: local
+  rmqvol:
 
 services:
   usersservice:
