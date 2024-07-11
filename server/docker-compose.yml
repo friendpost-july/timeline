@@ -6,7 +6,7 @@ services:
   usersservice:
     image: stoplight/prism:4
     ports:
-      - 14010:4010
+      - 14015:4010
     command: ["mock","-h","0.0.0.0","https://raw.githubusercontent.com/friendpost-july/user-spec/main/user_spec.yml"]
 
   postsservice:
@@ -40,3 +40,13 @@ services:
       - POST_SERVICE_ENV=https://postsservice:4010
       - FRIENDS_SERVICE_ENV=https://friendsservice:4010
       - USER_SERVICE_ENV=https://usersservice:4010
+
+  rabbitmq:
+    image: rabbitmq:3.13.3-management-alpine
+    hostname: rmq
+    volumes:
+      - rmqvol:/var/lib/rabbitmq:rw
+    environment:
+      - RABBITMQ_DEFAULT_PASS=password
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_ERLANG_COOKIE=chocochip

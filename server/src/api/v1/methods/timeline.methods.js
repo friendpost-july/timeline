@@ -9,10 +9,10 @@ import redisClient from "../helper/redisConnection.js";
 
 export const setCache = async (id) => {
   try {
-    const friends = await getFriends(id);
-    const publicPosts = await getAllPublicPosts();
-    const privatePosts = await getAllFriendsPosts(friends);
-    const newPosts = publicPosts.concat(privatePosts);
+    // const friends = await getFriends(id);
+    const newPosts = await getAllPublicPosts();
+    // const privatePosts = await getAllFriendsPosts(friends);
+    // const newPosts = publicPosts.concat(privatePosts);
     // const newPosts = posts.filter(
     //   async (post) => !(await getDeactivatedUsers()).includes(post.userId)
     // );
